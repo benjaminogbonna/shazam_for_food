@@ -25,7 +25,7 @@ def index(request):
     if request.method == 'POST':        
         file = request.FILES["image"]
         file_name = default_storage.save(file.name, file)
-        file_url = default_storage.path(file_name)       
+        file_url = default_storage.path(file_name)     
         try:
             pred, prob = load_and_pred(model, file_url, class_names)             
         except ValueError as e:
@@ -33,7 +33,8 @@ def index(request):
         else:
              prediction, probability = pred, prob
         context = {
-            'prediction': food_names[prediction].title(),
+            'pred': prediction,
+            'prediction': food_names[prediction],
             'probability': probability,        
         }
         return render(request, 'index.html', context)

@@ -8,8 +8,17 @@
     <meta charset="UTF-8">
     <title>Shazam</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 </head>
 <body>
+
+<div id="abacha_div">
+  This is abacha div.
+</div>
+
+<div id="akara_div">
+  This is akara div.
+</div>
 
 <section class="vh-100" style="background-color: #9A616D;">
   <div class="container py-5 h-100">
@@ -34,7 +43,14 @@
                     <span class="h1 fw-bold mb-0">Shazam your food</span>
                   </div>
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Upload an image or use camera.</h5>
-                  <h3 style='color: green;'>Food Name: <a href='#'>{{prediction}}</a></h3><br/>
+                  <h3 style='color: green;'>Food Name: 
+                    {% if pred == 'abacha' %}
+                      <a id='predi' onclick="abacha_func()">{{prediction |title}}</a>
+                    {% elif pred == 'akara' %}
+                      <a id='predi' onclick="akara_func()">{{prediction |title}}</a>
+                    {% endif %}
+                  
+                    </h3><br/>
                   <div class="form-outline mb-4">
                     {% csrf_token %}
                     <input type="file" id='files' name="image" accept='image/*' required/>
@@ -45,12 +61,10 @@
                   </div>
                   <div class="pt-1 mb-4">
                     <a href='{% url 'c' %}' class="btn btn-dark btn-lg btn-block">Use Camera</a>
-                  </div>                  
-
+                  </div>  
                   <a href="#!" class="small text-muted">Terms of use.</a>
                   <a href="#!" class="small text-muted">Privacy policy</a>
-                </form>
-                
+                </form>                
               </div>
             </div>
           </div>
@@ -60,10 +74,88 @@
   </div>
 </section>
 
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-<script src="{% static 'js/show_image.js' %}"></script>
 
+
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              
+              <img src="{% static 'images/1.jpeg' %}" alt="photo"
+                class="img-fluid" style="border-radius: 1rem 0 0 1rem;"/>
+              
+            </div>
+            
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+
+                <form method="post" enctype="multipart/form-data" name='form1'>
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                    <span class="h1 fw-bold mb-0">Shazam your food</span>
+                  </div>
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Upload an image or use camera.</h5>
+                  <h3 style='color: green;'>Food Name: 
+                    {% if pred == 'abacha' %}
+                      <a id='predi' onclick="abacha_func()">{{prediction |title}}</a>
+                    {% elif pred == 'akara' %}
+                      <a id='predi' onclick="akara_func()">{{prediction |title}}</a>
+                    {% endif %}
+                  
+                    </h3><br/>
+                  <div class="form-outline mb-4">
+                    {% csrf_token %}
+                    <input type="file" id='files' name="image" accept='image/*' required/>
+                  </div>                  
+
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit" >Check</button>
+                  </div>
+                  <div class="pt-1 mb-4">
+                    <a href='{% url 'c' %}' class="btn btn-dark btn-lg btn-block">Use Camera</a>
+                  </div>  
+                  <a href="#!" class="small text-muted">Terms of use.</a>
+                  <a href="#!" class="small text-muted">Privacy policy</a>
+                </form>                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<button id="predi">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close">&times;</span> 
+  <!-- Modal content -->
+  <div class="row modal-content" style='float: right;'>
+    
+    <div class="col-sm-4">
+      <img src="{% static 'images/1.jpeg' %}" class="rounded-circle img-fluid" alt=""/>
+    </div>    
+    <div class="col-md-8">
+      <h4>Find rewarding projects</h4>
+        <p class="text-muted">
+          Freedom to work on ideal projects. On GetLance, you run your own business and choose your own clients and projects. Just complete your profile and we'll highlight ideal jobs. Also search projects, and respond to client invitations.
+          Wide variety and high pay. Clients are now posting jobs in hundreds of skill categories, paying top price for great work.
+          More and more success. The greater the success you have on projects, the more likely you are to get hired by clients that use GetLance.
+          Freedom to work on ideal projects. On GetLance, you run your own business and choose your own clients and projects. Just complete your profile and we'll highlight ideal jobs. Also search projects, and respond to client invitations.
+          Wide variety and high pay. Clients are now posting jobs in hundreds of skill categories, paying top price for great work.
+          More and more success. The greater the success you have on projects, the more likely you are to get hired by clients that use GetLance.
+        </p>
+    </div>    
+  </div>
+</div>
+
+
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
 
 </body>
 </html>
